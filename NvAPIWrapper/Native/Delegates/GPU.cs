@@ -205,5 +205,9 @@ namespace NvAPIWrapper.Native.Delegates
             [In] PhysicalGPUHandle gpu,
             [Accepts(typeof(ClockFrequenciesV3), typeof(ClockFrequenciesV2), typeof(ClockFrequenciesV1))] [In]
             ValueTypeReference clockFrequencies);
+        
+        [FunctionId(FunctionId.NvAPI_GPU_GetTachReading)]
+        public delegate Status NvAPI_GPU_GetTachReading(
+            [In] PhysicalGPUHandle physicalGpu, [Out] out uint tachReading);
     }
 }

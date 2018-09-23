@@ -166,6 +166,11 @@ namespace NvAPIWrapper.GPU
         public int ShaderSubPipeLines => GPUApi.GetShaderSubPipeCount(Handle);
 
         /// <summary>
+        /// Gets GPU cooler tach reading
+        /// </summary>
+        public int CoolerFanTachReading => (int) GPUApi.GetTachReading(Handle);
+
+        /// <summary>
         ///     Gets GPU system type
         /// </summary>
         public SystemType SystemType => GPUApi.GetSystemType(Handle);
@@ -178,7 +183,7 @@ namespace NvAPIWrapper.GPU
         /// <summary>
         /// Gets GPU clock frequencies
         /// </summary>
-        public IClockFrequencies GpuClocks => GPUApi.GetClockFrequencies(Handle);
+        public IClockFrequencies GpuClocks => GPUApi.GetAllClockFrequencies(Handle);
 
         /// <summary>
         ///     Gets virtual size of framebuffer in KB for this GPU. This includes the physical RAM plus any system RAM that has

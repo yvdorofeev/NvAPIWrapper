@@ -796,7 +796,7 @@ namespace NvAPIWrapper.Native
         /// <returns>GPU clock frequencies</returns>
         /// <exception cref="NVIDIAApiException">Status.NvidiaDeviceNotFound: No NVIDIA GPU driving a display was found.</exception>
         /// <exception cref="NVIDIANotSupportedException">This operation is not supported.</exception>
-        public static IClockFrequencies GetClockFrequencies(PhysicalGPUHandle physicalGPUHandle)
+        public static IClockFrequencies GetAllClockFrequencies(PhysicalGPUHandle physicalGPUHandle)
         {
             var getClockFrequencies = DelegateFactory.Get<Delegates.GPU.NvAPI_SYS_GetAllClockFrequencies>();
             foreach (var acceptType in getClockFrequencies.Accepts())
@@ -853,6 +853,21 @@ namespace NvAPIWrapper.Native
             if (status != Status.Ok)
                 throw new NVIDIAApiException(status);
             return revision;
+        }
+        
+        /// <summary>
+        /// Returns GPU cooler fan tach reading
+        /// </summary>
+        /// <param name="gpuHandle">GPU handle to get information about</param>
+        /// <returns>Cooler fan tach reading</returns>
+        /// <exception cref="NVIDIAApiException">Status.NvidiaDeviceNotFound: No NVIDIA GPU driving a display was found.</exception>
+        /// <exception cref="NVIDIAApiException">Status.ExpectedPhysicalGPUHandle: gpuHandle was not a physical GPU handle.</exception>
+        public static uint GetTachReading(PhysicalGPUHandle gpuHandle)
+        {
+            var status = DelegateFactory.Get<Delegates.GPU.NvAPI_GPU_GetTachReading>()(gpuHandle, out var tachReading);
+            if (status != Status.Ok)
+                throw new NVIDIAApiException(status);
+            return tachReading;
         }
 
         /// <summary>
