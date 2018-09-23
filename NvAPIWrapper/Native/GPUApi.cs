@@ -790,6 +790,39 @@ namespace NvAPIWrapper.Native
         }
 
         /// <summary>
+        /// This function returns all clock frequencies
+        /// </summary>
+        /// <param name="physicalGPUHandle">Handle of the physical GPU for which the memory information is to be extracted.</param>
+        /// <returns>GPU clock frequencies</returns>
+        /// <exception cref="NVIDIAApiException">Status.NvidiaDeviceNotFound: No NVIDIA GPU driving a display was found.</exception>
+        /// <exception cref="NVIDIANotSupportedException">This operation is not supported.</exception>
+        public static IClockFrequencies GetClockFrequencies(PhysicalGPUHandle physicalGPUHandle)
+        {
+            var getClockFrequencies = DelegateFactory.Get<Delegates.GPU.NvAPI_SYS_GetAllClockFrequencies>();
+            foreach (var acceptType in getClockFrequencies.Accepts())
+            {
+                var instance = acceptType.Instantiate<IClockFrequencies>();
+                using (var clockFrequencies = ValueTypeReference.FromValueType(instance, acceptType))
+                {
+                    var status = getClockFrequencies(physicalGPUHandle, clockFrequencies);
+                    if (status == Status.IncompatibleStructureVersion)
+                    {
+                        continue;
+                    }
+
+                    if (status != Status.Ok)
+                    {
+                        throw new NVIDIAApiException(status);
+                    }
+
+                    return clockFrequencies.ToValueType<IClockFrequencies>(acceptType);
+                }
+            }
+            
+            throw new NVIDIANotSupportedException("This operation is not supported.");
+        }
+
+        /// <summary>
         ///     This function returns the OEM revision of the video BIOS associated with this GPU.
         /// </summary>
         /// <param name="gpuHandle">GPU handle to get information about</param>

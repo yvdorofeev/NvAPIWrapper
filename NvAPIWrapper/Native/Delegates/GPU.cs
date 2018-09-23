@@ -199,5 +199,11 @@ namespace NvAPIWrapper.Native.Delegates
         [FunctionId(FunctionId.NvAPI_SYS_GetPhysicalGpuFromDisplayId)]
         public delegate Status NvAPI_SYS_GetPhysicalGpuFromDisplayId(
             [In] uint displayId, [Out] out PhysicalGPUHandle gpu);
+
+        [FunctionId(FunctionId.NvAPI_GPU_GetAllClockFrequencies)]
+        public delegate Status NvAPI_SYS_GetAllClockFrequencies(
+            [In] PhysicalGPUHandle gpu,
+            [Accepts(typeof(ClockFrequenciesV3), typeof(ClockFrequenciesV2), typeof(ClockFrequenciesV1))] [In]
+            ValueTypeReference clockFrequencies);
     }
 }

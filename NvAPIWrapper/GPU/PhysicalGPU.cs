@@ -176,6 +176,11 @@ namespace NvAPIWrapper.GPU
         public IThermalSensor[] ThermalSensors => GPUApi.GetThermalSettings(Handle);
 
         /// <summary>
+        /// Gets GPU clock frequencies
+        /// </summary>
+        public IClockFrequencies GpuClocks => GPUApi.GetClockFrequencies(Handle);
+
+        /// <summary>
         ///     Gets virtual size of framebuffer in KB for this GPU. This includes the physical RAM plus any system RAM that has
         ///     been dedicated for use by the GPU.
         /// </summary>
