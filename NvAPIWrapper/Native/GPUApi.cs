@@ -822,6 +822,22 @@ namespace NvAPIWrapper.Native
             throw new NVIDIANotSupportedException("This operation is not supported.");
         }
 
+        public static IGpuCoolerSetting[] GetAllGpuCoolerSettings(PhysicalGPUHandle physicalGPUHandle)
+        {
+            var getGpuCoolerSettings = DelegateFactory.Get<Delegates.GPU.NvAPI_GPU_GetCoolerSettings>();
+            var instance = typeof(GpuCoolerSettings).Instantiate<GpuCoolerSettings>();
+            using (var gpuCoolerSettings = ValueTypeReference.FromValueType(instance))
+            {
+                var status = getGpuCoolerSettings(physicalGPUHandle, 7, gpuCoolerSettings);
+                if (status != Status.Ok)
+                {
+                    throw new NVIDIAApiException(status);
+                }
+
+                return gpuCoolerSettings.ToValueType<GpuCoolerSettings>(typeof(GpuCoolerSettings)).CoolerSettings;
+            }
+        }
+
         /// <summary>
         ///     This function returns the OEM revision of the video BIOS associated with this GPU.
         /// </summary>
@@ -869,7 +885,7 @@ namespace NvAPIWrapper.Native
                 throw new NVIDIAApiException(status);
             return tachReading;
         }
-
+        
         /// <summary>
         ///     This function returns the full video BIOS version string in the form of xx.xx.xx.xx.yy where xx numbers come from
         ///     GetVbiosRevision() and yy comes from GetVbiosOEMRevision().

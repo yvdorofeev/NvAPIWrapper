@@ -81,6 +81,16 @@ namespace NvAPISample
                             )
                 },
                 {
+                    "GPU Cooler Settings", () =>
+                        ConsoleNavigation.PrintNavigation(
+                            PhysicalGPU.GetPhysicalGPUs().ToDictionary(gpu => (object)gpu.ToString(), gpu => new Action(() =>
+                            {
+                                ConsoleNavigation.PrintObject(gpu.GpuCoolerSettings, "PhysicalGPU.GpuCoolerSettings");
+                            })),
+                            "PhysicalGPU.GetPhysicalGPUs()", "Select a GPU to show clock frequencies"
+                        )
+                },
+                {
                     "GPU Dynamic Performance States", () =>
                         ConsoleNavigation.PrintNavigation(
                             PhysicalGPU.GetPhysicalGPUs()

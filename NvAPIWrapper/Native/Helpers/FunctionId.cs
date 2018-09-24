@@ -296,6 +296,7 @@ namespace NvAPIWrapper.Native.Helpers
         NvAPI_SYS_GetDisplayIdFromGpuAndOutputId = 0x8F2BAB4,
         NvAPI_SYS_GetGpuAndOutputIdFromDisplayId = 0x112BA1A5,
         NvAPI_SYS_GetPhysicalGpuFromDisplayId = 0x9EA74659,
-        NvAPI_Unload = 0xD22BDD7E
+        NvAPI_Unload = 0xD22BDD7E,
+        NvAPI_GPU_GetCoolerSettings = 0xDA141340
     }
 }

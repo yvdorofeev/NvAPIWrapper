@@ -170,6 +170,8 @@ namespace NvAPIWrapper.GPU
         /// </summary>
         public int CoolerFanTachReading => (int) GPUApi.GetTachReading(Handle);
 
+        public IGpuCoolerSetting[] GpuCoolerSettings => GPUApi.GetAllGpuCoolerSettings(Handle);
+
         /// <summary>
         ///     Gets GPU system type
         /// </summary>

@@ -209,5 +209,11 @@ namespace NvAPIWrapper.Native.Delegates
         [FunctionId(FunctionId.NvAPI_GPU_GetTachReading)]
         public delegate Status NvAPI_GPU_GetTachReading(
             [In] PhysicalGPUHandle physicalGpu, [Out] out uint tachReading);
+        
+        [FunctionId(FunctionId.NvAPI_GPU_GetCoolerSettings)]
+        public delegate Status NvAPI_GPU_GetCoolerSettings(
+            [In] PhysicalGPUHandle gpu,
+            [In] uint coolerIndex,
+            [Accepts(typeof(GpuCoolerSettings))] [In] ValueTypeReference clockFrequencies);
     }
 }
